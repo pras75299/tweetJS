@@ -10,6 +10,10 @@ function eventListeners() {
 
     //remove the tweet from the list
     tweetList.addEventListener('click', removeTweet);
+
+    //document
+
+    document.addEventListener('DOMContentLoaded', localStorageOnLoad);
 }
 
 
@@ -74,4 +78,30 @@ function getTweetsFromStorage() {
         tweets = JSON.parse(tweetLS)
     }
     return tweets;
+}
+
+
+
+function localStorageOnLoad() {
+    let tweets = getTweetsFromStorage();
+
+    //loop through the storage and print it
+    tweets.forEach(function(tweet) {
+        //create the remove button
+        const removeBtn = document.createElement('a');
+        removeBtn.classList = 'remove-tweet';
+        removeBtn.textContent = 'X';
+
+        //Create an element
+        const li = document.createElement('li');
+        li.textContent = tweet;
+
+        //Add the remove btn to each tweet
+
+        li.appendChild(removeBtn);
+
+        //add to the list
+
+        tweetList.appendChild(li);
+    })
 }
